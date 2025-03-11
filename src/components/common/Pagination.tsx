@@ -13,6 +13,7 @@ const PaginationBox = styled.div`
   justify-content: space-between;
   position: absolute;
   bottom: 25px;
+  left: 0;
   padding: 0 20px 0 20px;
 `;
 
