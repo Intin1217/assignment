@@ -1,6 +1,6 @@
-import App from '../App.tsx';
-import Test from '../pages/Test.tsx';
 import { createBrowserRouter } from 'react-router-dom';
+import App from '@/App.tsx';
+import Test from '@/pages/Test.tsx';
 
 export const ROUTE_LINK = {
   TEST: { path: 'test', link: '/test' },
