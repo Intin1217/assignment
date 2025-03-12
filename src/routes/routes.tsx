@@ -15,6 +15,12 @@ const routes = [
   {
     path: '/page/1',
     element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Pagination />,
+      },
+    ],
   },
   {
     path: '/page/:page',
