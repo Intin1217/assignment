@@ -29,6 +29,7 @@ export default function Question({ question, children }: Props) {
             useTransition={true}
             transitionDuration={0.2}
             onClick={() => setIsOpen(true)}
+            onMouseEnter={() => setIsOpen(true)}
           >
             실습 방법 확인하기
           </Button>

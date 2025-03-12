@@ -12,20 +12,17 @@ const Button = ({
   height = 'auto',
   padding = '5px',
   fontSize = '16px',
-
   position = 'static',
   top,
   bottom,
   left,
   right,
-
   useHover = false,
   hoverBackgroundColor,
   hoverScale = 1,
-
   useTransition = false,
   transitionDuration = 1,
-
+  onMouseEnter,
   ...rest
 }: ButtonProps) => {
   return (
@@ -48,6 +45,7 @@ const Button = ({
       hoverScale={hoverScale}
       useTransition={useTransition}
       transitionDuration={transitionDuration}
+      onMouseEnter={onMouseEnter}
       {...rest}
     >
       {children}

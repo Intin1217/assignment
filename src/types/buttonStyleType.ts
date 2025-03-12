@@ -11,17 +11,15 @@ export interface ButtonProps
   height?: string;
   padding?: string;
   fontSize?: string;
-
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
   top?: string;
   bottom?: string;
   left?: string;
   right?: string;
-
   useHover?: boolean;
   hoverBackgroundColor?: string;
   hoverScale?: number;
-
   useTransition?: boolean;
   transitionDuration?: number;
+  onMouseEnter?: () => void;
 }
