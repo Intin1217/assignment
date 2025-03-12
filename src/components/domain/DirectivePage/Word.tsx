@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { COLORS } from '@utils/color.ts';
+import * as Styled from '@styles/component/domain/DirectivePage/Word.styled.ts';
 import { ContentDataListType } from '@/types/contentDataListType.ts';
 import { useEffect } from 'react';
 import { userAfkStore } from '@/store/userAfkStore.ts';
@@ -10,39 +9,6 @@ interface Props {
   onDragStart: (word: string) => void;
   selectedWords: string[];
 }
-
-interface WordStyleProps {
-  id: number;
-  top?: string;
-  left?: string;
-  right?: string;
-  bottom?: string;
-  blink?: boolean;
-}
-
-const Content = styled.div.withConfig({
-  shouldForwardProp: (prop) =>
-    !['top', 'left', 'right', 'bottom', 'text', 'id', 'blink'].includes(prop),
-})<WordStyleProps>`
-  cursor: pointer;
-  background-color: white;
-  color: ${COLORS.MAIN};
-  position: absolute;
-  padding: 20px;
-  border-radius: 20px;
-  top: ${(props) => props.top || null}px;
-  left: ${(props) => props.left || null}px;
-  right: ${(props) => props.right || null}px;
-  bottom: ${(props) => props.bottom || null}px;
-
-  ${(props) => props.blink && `animation: blink-effect 1s step-end infinite`};
-
-  @keyframes blink-effect {
-    50% {
-      opacity: 0;
-    }
-  }
-`;
 
 export default function Word({
   contentDataList,
@@ -68,7 +34,7 @@ export default function Word({
   return (
     <>
       {contentDataList.map((item, index) => (
-        <Content
+        <Styled.Content
           key={index}
           {...item}
           draggable
@@ -80,7 +46,7 @@ export default function Word({
           }
         >
           {item.text}
-        </Content>
+        </Styled.Content>
       ))}
     </>
   );

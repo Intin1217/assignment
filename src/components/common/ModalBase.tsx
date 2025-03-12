@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as Styled from '@styles/component/common/ModalBase.styled';
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,47 +8,15 @@ interface ModalProps {
   children?: React.ReactNode;
 }
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* 배경 투명도 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-`;
-
-const ModalContainer = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  min-width: 300px;
-  min-height: 400px;
-  max-height: 800px;
-  max-width: 800px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const TitleBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  h2 {
-    font-size: large;
-  }
-  p {
-    line-height: 1.5;
-  }
-`;
+/**
+ * 모달 컴포넌트
+ * @param {Object} props - 컴포넌트의 props
+ * @param {boolean} props.isOpen - 모달 열려있는지 판별
+ * @param {() => void} props.onClose - 모달을 닫는 함수
+ * @param {string} props.title - 모달 제목
+ * @param {string} props.description - 모달 설명
+ * @param {React.ReactNode} props.children - 모달 내부에 렌더링될 요소들
+ * **/
 
 export default function ModalBase({
   isOpen,
@@ -60,14 +28,14 @@ export default function ModalBase({
   if (!isOpen) return null;
 
   return (
-    <Overlay onClick={onClose}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <TitleBox>
+    <Styled.Overlay onClick={onClose}>
+      <Styled.ModalContainer onClick={(e) => e.stopPropagation()}>
+        <Styled.TitleBox>
           <h2>{title}</h2>
           <p>{description}</p>
-        </TitleBox>
+        </Styled.TitleBox>
         {children}
-      </ModalContainer>
-    </Overlay>
+      </Styled.ModalContainer>
+    </Styled.Overlay>
   );
 }

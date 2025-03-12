@@ -1,55 +1,15 @@
 import Question from '@components/common/Question.tsx';
-import styled from 'styled-components';
+import * as Styled from '@styles/pages/DirectivePage.styled';
 import OceanImg from '@assets/Ocean.jpg';
 import Word from '@components/domain/DirectivePage/Word.tsx';
 import Answer from '@components/domain/DirectivePage/Answer.tsx';
 import Button from '@components/common/Button.tsx';
 import { COLORS } from '@utils/color.ts';
 import React, { useEffect, useState } from 'react';
-import SubmitModal from '@components/domain/DirectivePage/SubmitModal.tsx';
+import ImageSelectModal from '@components/domain/DirectivePage/ImageSelectModal.tsx';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
 import { useAnswerStore } from '@/store/answerStore.ts';
-import SelectedImage from '@components/domain/DirectivePage/SelectedImage.tsx';
-
-const ContentWapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const ImageField = styled.figure`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-
-  img {
-    width: 1620px;
-    height: 560px;
-    object-fit: cover;
-    border-radius: 20px;
-  }
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  justify-content: end;
-`;
-
-const SelectedImageContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-`;
+import DragSelectedImage from '@components/domain/DirectivePage/DragSelectedImage.tsx';
 
 const initialContentDataList = [
   { id: 1, top: '100', left: '100', text: '보라' },
@@ -67,8 +27,8 @@ const initialContentDataList = [
 
 export default function DirectivePage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [draggedWord, setDraggedWord] = useState<string>();
-  const [selectedWords, setSelectedWords] = useState<string[]>([]);
+  const [draggedWord, setDraggedWord] = useState<string>(); //현재 드래그 중인 단어 저장
+  const [selectedWords, setSelectedWords] = useState<string[]>([]); //선택한 단어 리스트
   const { answer, answerList } = useAnswerStore();
   const { selectedImage } = useSelectedImageStore();
 
@@ -81,14 +41,17 @@ export default function DirectivePage() {
   const question =
     '아래의 단어로 지시어를 완성해서 방금 본 바다 생물을 만들어보세요.';
 
+  //드래그 시작 시 실행
   const handleDragStart = (word: string) => {
     setDraggedWord(word);
   };
 
+  // 드래그 유지 허용
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
+  // 드랍 시 실행
   const handleDrop =
     (boxIndex: number) => (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
@@ -107,24 +70,28 @@ export default function DirectivePage() {
   if (selectedImage) {
     return (
       <Question question={question}>
-        <ContentWapper>
-          <ImageField>
-            <img src={OceanImg} alt="바다 내부 이미지" />
-            <SelectedImageContainer>
-              <SelectedImage />
-            </SelectedImageContainer>
-          </ImageField>
+        <Styled.ContentWrapper>
+          <Styled.ImageField>
+            <Styled.ImageWrapper>
+              <Styled.BackgroundImage src={OceanImg} alt="바다 내부 이미지" />
+            </Styled.ImageWrapper>
+            <Styled.SelectedImageContainer>
+              <DragSelectedImage />
+            </Styled.SelectedImageContainer>
+          </Styled.ImageField>
           <ButtonArea selectedWords={selectedWords} setIsOpen={setIsOpen} />
-        </ContentWapper>
+        </Styled.ContentWrapper>
       </Question>
     );
   }
 
   return (
     <Question question={question}>
-      <ContentWapper>
-        <ImageField>
-          <img src={OceanImg} alt="바다 내부 이미지" />
+      <Styled.ContentWrapper>
+        <Styled.ImageField>
+          <Styled.ImageWrapper>
+            <Styled.BackgroundImage src={OceanImg} alt="바다 내부 이미지" />
+          </Styled.ImageWrapper>
           <Word
             contentDataList={initialContentDataList}
             onDragStart={handleDragStart}
@@ -135,10 +102,10 @@ export default function DirectivePage() {
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           />
-        </ImageField>
+        </Styled.ImageField>
         <ButtonArea selectedWords={selectedWords} setIsOpen={setIsOpen} />
-      </ContentWapper>
-      <SubmitModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      </Styled.ContentWrapper>
+      <ImageSelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Question>
   );
 }
@@ -154,7 +121,7 @@ function ButtonArea({
   const { resetAnswer } = useAnswerStore();
 
   return (
-    <ButtonBox>
+    <Styled.ButtonBox>
       {selectedImage && (
         <Button
           disabled={!selectedImage}
@@ -181,6 +148,6 @@ function ButtonArea({
           제출
         </Button>
       )}
-    </ButtonBox>
+    </Styled.ButtonBox>
   );
 }

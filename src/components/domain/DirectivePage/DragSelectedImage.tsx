@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { Rnd } from 'react-rnd';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
+import * as Styled from '@styles/component/domain/DirectivePage/DragSelectedImage.styled';
 
-const Container = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+/**
+ * 선택된 이미지 드래그 및 리사이즈하는 컴포넌트
+ *
+ * 사용자가 이미지를 드래그하여 화면 내에서 위치를 변경이 가능, 이미지 사이즈 리사이즈 가능
+ * `selectedImage`가 있을 경우 해당 이미지를 화면에 표시
+ *
+ */
 
-export default function SelectedImage() {
+export default function DragSelectedImage() {
   const { selectedImage } = useSelectedImageStore();
   const containerRef = useRef<HTMLDivElement>(null);
   const [defaultPos, setDefaultPos] = useState({ x: 0, y: 0 });
@@ -28,7 +30,7 @@ export default function SelectedImage() {
   }, []);
 
   return (
-    <Container ref={containerRef}>
+    <Styled.Container ref={containerRef}>
       {isInitialized && (
         <Rnd
           default={{
@@ -40,25 +42,14 @@ export default function SelectedImage() {
           bounds="parent"
           dragHandleClassName="drag-handle"
         >
-          <div
-            className="drag-handle"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <img
+          <Styled.ImageBox className="drag-handle">
+            <Styled.SelectedImage
               src={`data:image/png;base64,${selectedImage}`}
               alt="고래 이미지"
-              style={{
-                width: '100%',
-                height: '100%',
-                pointerEvents: 'none', // 내부 요소에서 드래그 이벤트 방해 방지
-              }}
             />
-          </div>
+          </Styled.ImageBox>
         </Rnd>
       )}
-    </Container>
+    </Styled.Container>
   );
 }
