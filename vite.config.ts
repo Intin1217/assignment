@@ -13,7 +13,7 @@ export default defineConfig({
       { find: '@routes', replacement: '/src/routes' },
       { find: '@store', replacement: '/src/store' },
       { find: '@styles', replacement: '/src/styles' },
-      { find: '@types', replacement: '/src/types' },
+      { find: '@/types', replacement: '/src/types' },
       { find: '@utils', replacement: '/src/utils' },
     ],
   },
