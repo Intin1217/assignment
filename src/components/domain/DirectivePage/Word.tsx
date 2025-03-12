@@ -15,7 +15,10 @@ interface WordStyleProps {
   bottom?: string;
 }
 
-const Content = styled.p<WordStyleProps>`
+const Content = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !['top', 'left', 'right', 'bottom', 'text', 'id'].includes(prop),
+})<WordStyleProps>`
   cursor: pointer;
   background-color: white;
   color: ${COLORS.MAIN};
