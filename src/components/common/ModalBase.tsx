@@ -16,7 +16,6 @@ interface ModalProps {
  * @param {string} props.title - 모달 제목
  * @param {string} props.description - 모달 설명
  * @param {React.ReactNode} props.children - 모달 내부에 렌더링될 요소들
- * @returns {JSX.Element} 모달 UI를 반환
  * **/
 
 export default function ModalBase({
