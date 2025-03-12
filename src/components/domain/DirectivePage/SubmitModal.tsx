@@ -14,10 +14,12 @@ interface StyledProps {
 }
 
 const ImageWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); // 2개의 열
-  gap: 10px; // 이미지 사이의 간격
-  width: 100%; // 필요한 너비 설정
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: auto;
 `;
 
 const ImageContainer = styled.div<StyledProps>`
@@ -75,19 +77,19 @@ export default function SubmitModal({ isOpen, onClose }: ModalPropsType) {
       onClose={onClose}
     >
       <ImageWrapper>
-        {imageUrl.map((item, index) => (
-          <ImageContainer isSelected={item === tempSelectedImage} key={index}>
-            {isLoading ? (
-              <img src={Loading} alt="로딩 이미지" />
-            ) : (
+        {isLoading ? (
+          <img src={Loading} alt="로딩 이미지" />
+        ) : (
+          imageUrl.map((item, index) => (
+            <ImageContainer isSelected={item === tempSelectedImage} key={index}>
               <img
                 onClick={() => setTempSelectedImage(item)}
                 src={`data:image/png;base64,${item}`}
                 alt={`이미지 ${index}`}
               />
-            )}
-          </ImageContainer>
-        ))}
+            </ImageContainer>
+          ))
+        )}
       </ImageWrapper>
       <Button
         width="100%"
