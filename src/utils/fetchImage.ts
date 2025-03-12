@@ -8,6 +8,7 @@ export const fetchImageFromAPI = async (
   const options = {
     method: 'POST',
     headers: {
+      accept: 'application/json',
       'Content-Type': 'application/json',
       authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
     },
