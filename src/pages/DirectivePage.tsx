@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import SubmitModal from '@components/domain/DirectivePage/SubmitModal.tsx';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
 import { useAnswerStore } from '@/store/answerStore.ts';
+import SelectedImage from '@components/domain/DirectivePage/SelectedImage.tsx';
 
 const ContentWapper = styled.div`
   display: flex;
@@ -40,10 +41,15 @@ const ButtonBox = styled.div`
   justify-content: end;
 `;
 
-const SelectedImage = styled.img`
+const SelectedImageContainer = styled.div`
   position: absolute;
-  max-width: 256px;
-  max-height: 256px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
 `;
 
 const initialContentDataList = [
@@ -105,10 +111,9 @@ export default function DirectivePage() {
         <ContentWapper>
           <ImageField>
             <img src={OceanImg} alt="바다 내부 이미지" />
-            <SelectedImage
-              src={`data:image/png;base64,${selectedImage}`}
-              alt="고래 이미지"
-            />
+            <SelectedImageContainer>
+              <SelectedImage />
+            </SelectedImageContainer>
           </ImageField>
           <ButtonArea selectedWords={selectedWords} setIsOpen={setIsOpen} />
         </ContentWapper>
