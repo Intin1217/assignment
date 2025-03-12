@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import Button from '@components/common/Button.tsx';
+import { COLORS } from '@utils/color.ts';
 
 interface Props {
   color?: string;
@@ -23,7 +25,7 @@ const PageBox = styled.div`
 `;
 
 const Text = styled.p<Props>`
-  color: ${(props) => props.color || `#6e55af`};
+  color: ${(props) => props.color || `${COLORS.MAIN}`};
   font-weight: bold;
   font-size: large;
   display: flex;
@@ -44,30 +46,32 @@ export default function Pagination() {
   return (
     <PaginationBox>
       <div>
-        <button
+        <Button
+          border="none"
           disabled={currentPage === 1}
           onClick={() => gotoPage(Number(currentPage - 1))}
         >
-          <Text color={`${currentPage === 1 ? '#D8D8E2' : ''}`}>
+          <Text color={`${currentPage === 1 ? `${COLORS.DISABLE_COLOR}` : ''}`}>
             <IoIosArrowBack />
             이전
           </Text>
-        </button>
+        </Button>
       </div>
       <PageBox>
         <Text>{currentPage}</Text>
-        <Text color="#D8D8E2">/</Text>
-        <Text color="#D8D8E2">3</Text>
+        <Text color={`${COLORS.DISABLE_COLOR}`}>/</Text>
+        <Text color={`${COLORS.DISABLE_COLOR}`}>3</Text>
       </PageBox>
       <div>
-        <button
+        <Button
+          border="none"
           disabled={currentPage === 3}
           onClick={() => gotoPage(Number(currentPage + 1))}
         >
-          <Text color={`${currentPage === 3 ? '#D8D8E2' : ''}`}>
+          <Text color={`${currentPage === 3 ? `${COLORS.DISABLE_COLOR}` : ''}`}>
             다음 <IoIosArrowForward />
           </Text>
-        </button>
+        </Button>
       </div>
     </PaginationBox>
   );
