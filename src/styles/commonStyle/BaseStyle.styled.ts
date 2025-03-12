@@ -23,7 +23,7 @@ export const BackGroundContainer = styled.div`
 `;
 
 export const MainContainer = styled.main`
-    position: relative;
+  position: relative;
   background-color: white;
   margin: 20px 50px 20px 50px;
   height: 100%;
@@ -31,11 +31,12 @@ export const MainContainer = styled.main`
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
 `;
 
 export const Footer = styled.div`
