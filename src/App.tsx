@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Pagination from '@components/common/Pagination.tsx';
+import { Outlet } from 'react-router-dom';
 
 const ContentBox = styled.p`
   font-size: x-large;
@@ -20,7 +20,7 @@ function App() {
         어떠한지 구체적으로 지시어를 입력할수록 인공지능은 내가 원하는 그림을 잘
         만들어 낼 수 있습니다.
       </ContentBox>
-      <Pagination />
+      <Outlet />
     </>
   );
 }
