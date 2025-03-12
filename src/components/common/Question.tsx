@@ -1,4 +1,4 @@
-import * as Styled from '@styles/PageContentBaseStyle.styled.ts';
+import * as Styled from '@styles/component/common/Question.styled.ts';
 import QMark from '@assets/Q Mark.svg';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,6 +9,15 @@ interface Props {
   question: string;
   children: React.ReactNode;
 }
+
+/**
+ * Question 컴포넌트
+ *
+ * @component
+ * @param {Object} props - 컴포넌트 속성
+ * @param {string} props.question - 표시할 질문 텍스트
+ * @param {React.ReactNode} props.children - 질문 아래에 렌더링될 콘텐츠
+ */
 
 export default function Question({ question, children }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
