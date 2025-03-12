@@ -1,7 +1,29 @@
 import styled from 'styled-components';
 import { ButtonProps } from '@/types/buttonStyleType.ts';
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      'top',
+      'bottom',
+      'left',
+      'right',
+      'textColor',
+      'backgroundColor',
+      'border',
+      'borderRadius',
+      'width',
+      'height',
+      'padding',
+      'fontSize',
+      'position',
+      'useTransition',
+      'transitionDuration',
+      'useHover',
+      'hoverBackgroundColor',
+      'hoverScale',
+    ].includes(prop),
+})<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
