@@ -22,7 +22,9 @@ const ImageWrapper = styled.div`
   width: auto;
 `;
 
-const ImageContainer = styled.div<StyledProps>`
+const ImageContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isSelected'].includes(prop),
+})<StyledProps>`
   display: flex;
   justify-content: center;
   align-items: center;
