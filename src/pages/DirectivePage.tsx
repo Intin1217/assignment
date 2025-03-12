@@ -60,20 +60,18 @@ const initialContentDataList = [
   { id: 11, bottom: '210', right: '180', text: '불가사리' },
 ];
 
-const acceptWordOrder = [['보라'], ['웃는'], ['고래']];
-
 export default function DirectivePage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [draggedWord, setDraggedWord] = useState<string>();
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
-  const { answer } = useAnswerStore();
+  const { answer, answerList } = useAnswerStore();
   const { selectedImage } = useSelectedImageStore();
 
   useEffect(() => {
-    if (!isOpen && answer.length === 0 && selectedWords.length > 0) {
+    if (!isOpen && answerList.length === 0 && selectedWords.length > 0) {
       setSelectedWords([]);
     }
-  }, [answer]);
+  }, [answerList]);
 
   const question =
     '아래의 단어로 지시어를 완성해서 방금 본 바다 생물을 만들어보세요.';
@@ -91,7 +89,7 @@ export default function DirectivePage() {
       e.preventDefault();
 
       if (draggedWord) {
-        const acceptWord = acceptWordOrder[boxIndex];
+        const acceptWord = answer[boxIndex];
         if (acceptWord.includes(draggedWord)) {
           const newSelectedWords = [...selectedWords];
           newSelectedWords[boxIndex] = draggedWord;
@@ -126,6 +124,7 @@ export default function DirectivePage() {
           <Word
             contentDataList={initialContentDataList}
             onDragStart={handleDragStart}
+            selectedWords={selectedWords}
           />
           <Answer
             selectedWords={selectedWords}

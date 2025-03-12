@@ -43,15 +43,15 @@ export default function SubmitModal({ isOpen, onClose }: ModalPropsType) {
   const [tempSelectedImage, setTempSelectedImage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { setSelectedImage } = useSelectedImageStore();
-  const { answer } = useAnswerStore();
+  const { answerList } = useAnswerStore();
 
   const modalDescription = '네 개 이미지 중 하나를 고르세요.';
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isOpen && answer.length === 3) {
+      if (isOpen && answerList.length === 3) {
         setIsLoading(true);
-        const res = await fetchImageFromAPI(answer);
+        const res = await fetchImageFromAPI(answerList);
 
         if (!res) return;
         setImageUrl(res.predictions);
