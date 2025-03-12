@@ -152,28 +152,32 @@ function ButtonArea({
 
   return (
     <ButtonBox>
-      <Button
-        disabled={!selectedImage}
-        padding="8px 20px 8px 20px"
-        onClick={() => {
-          resetAnswer();
-          resetSelectedImage();
-        }}
-      >
-        다시하기
-      </Button>
-      <Button
-        disabled={selectedWords.length < 3}
-        backgroundColor={
-          selectedWords.length < 3 ? COLORS.DISABLE_COLOR : COLORS.MAIN
-        }
-        border={selectedWords.length < 3 ? 'none' : ''}
-        textColor="white"
-        padding="8px 20px 8px 20px"
-        onClick={() => setIsOpen(true)}
-      >
-        제출
-      </Button>
+      {selectedImage && (
+        <Button
+          disabled={!selectedImage}
+          padding="8px 20px 8px 20px"
+          onClick={() => {
+            resetAnswer();
+            resetSelectedImage();
+          }}
+        >
+          다시하기
+        </Button>
+      )}
+      {!selectedImage && (
+        <Button
+          disabled={selectedWords.length < 3}
+          backgroundColor={
+            selectedWords.length < 3 ? COLORS.DISABLE_COLOR : COLORS.MAIN
+          }
+          border={selectedWords.length < 3 ? 'none' : ''}
+          textColor="white"
+          padding="8px 20px 8px 20px"
+          onClick={() => setIsOpen(true)}
+        >
+          제출
+        </Button>
+      )}
     </ButtonBox>
   );
 }
