@@ -1,8 +1,7 @@
-import styled from 'styled-components';
 import React, { useEffect } from 'react';
-import { COLORS } from '@utils/color.ts';
 import { useAnswerStore } from '@/store/answerStore.ts';
 import { userAfkStore } from '@/store/userAfkStore.ts';
+import * as Styled from '@styles/component/domain/DirectivePage/Answer.styled.ts';
 
 interface AnswerProps {
   selectedWords: string[];
@@ -10,52 +9,13 @@ interface AnswerProps {
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-interface AnswerDragBoxStyleProps {
-  blink?: boolean;
-}
-
-const AnswerField = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 1620px;
-  padding: 50px;
-  background-color: black;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  opacity: 70%;
-`;
-
-const AnswerBox = styled.div`
-  position: absolute;
-  bottom: 20px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  p {
-    font-size: large;
-    padding: 20px;
-  }
-`;
-
-const AnswerDragBox = styled.p.withConfig({
-  shouldForwardProp: (prop) => !['blink'].includes(prop),
-})<AnswerDragBoxStyleProps>`
-  background-color: white;
-  width: 100px;
-  padding: 20px;
-  border-radius: 10px;
-  color: ${COLORS.MAIN};
-  text-align: center;
-
-  ${(props) => props.blink && `animation: blink-effect 1s step-end infinite`};
-
-  @keyframes blink-effect {
-    50% {
-      opacity: 0;
-    }
-  }
-`;
+/**
+ * 정답 영역 컴포넌트
+ *  @param {Object} props - 컴포넌트의 속성
+ *  @param {string[]} props.selectedWords - 사용자가 선택한 단어 목록
+ *  @param {(index: number) => (e: React.DragEvent<HTMLDivElement>) => void} props.onDrop - 드롭 이벤트 핸들러
+ *  @param {(e: React.DragEvent<HTMLDivElement>) => void} props.onDragOver - 드래그 오버 이벤트 핸들러
+ * **/
 
 export default function Answer({
   selectedWords,
@@ -80,33 +40,33 @@ export default function Answer({
 
   return (
     <>
-      <AnswerField />
-      <AnswerBox>
-        <AnswerDragBox
+      <Styled.AnswerField />
+      <Styled.AnswerBox>
+        <Styled.AnswerDragBox
           onDrop={onDrop(0)}
           onDragOver={onDragOver}
           blink={isAfk && selectedWords[0] !== answer[0]}
         >
           {selectedWords[0] || ''}
-        </AnswerDragBox>
+        </Styled.AnswerDragBox>
         <p>색의</p>
-        <AnswerDragBox
+        <Styled.AnswerDragBox
           onDrop={onDrop(1)}
           onDragOver={onDragOver}
           blink={isAfk && selectedWords[1] !== answer[1]}
         >
           {selectedWords[1] || ''}
-        </AnswerDragBox>
+        </Styled.AnswerDragBox>
         <p>표정을 하고 있는</p>
-        <AnswerDragBox
+        <Styled.AnswerDragBox
           onDrop={onDrop(2)}
           onDragOver={onDragOver}
           blink={isAfk && selectedWords[2] !== answer[2]}
         >
           {selectedWords[2] || ''}
-        </AnswerDragBox>
+        </Styled.AnswerDragBox>
         <p>그림을 그려줘</p>
-      </AnswerBox>
+      </Styled.AnswerBox>
     </>
   );
 }

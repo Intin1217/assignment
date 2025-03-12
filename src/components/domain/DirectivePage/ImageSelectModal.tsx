@@ -5,42 +5,22 @@ import Button from '@components/common/Button.tsx';
 import { useEffect, useState } from 'react';
 import { useAnswerStore } from '@/store/answerStore.ts';
 import { fetchImageFromAPI } from '@utils/fetchImage.ts';
-import styled from 'styled-components';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
 import Loading from '@assets/Loading.gif';
+import * as Styled from '@styles/component/common/ModalBase.styled';
 
-interface StyledProps {
-  isSelected: boolean;
-}
+/**
+ * ImageSelectModal 컴포넌트
+ *
+ * 제출 후 이미지를 선택하는 컴포넌트
+ *
+ * @component
+ * @param {Object} props - 컴포넌트 속성
+ * @param {boolean} props.isOpen - 모달 열려있는지 판별
+ * @param {() => void} props.onClose - 모달을 닫는 함수
+ */
 
-const ImageWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: auto;
-`;
-
-const ImageContainer = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['isSelected'].includes(prop),
-})<StyledProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  border: 1px solid black;
-  outline: ${({ isSelected }) =>
-    isSelected ? `4px solid ${COLORS.MAIN}` : 'none'};
-  outline-offset: -2px; // 내부에 선 추가 효과
-  img {
-    min-width: 256px;
-    min-height: 256px;
-    border-radius: 20px;
-  }
-`;
-
-export default function SubmitModal({ isOpen, onClose }: ModalPropsType) {
+export default function ImageSelectModal({ isOpen, onClose }: ModalPropsType) {
   const [imageUrl, setImageUrl] = useState<string[] | null>([]);
   const [tempSelectedImage, setTempSelectedImage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -78,21 +58,24 @@ export default function SubmitModal({ isOpen, onClose }: ModalPropsType) {
       isOpen={isOpen}
       onClose={onClose}
     >
-      <ImageWrapper>
+      <Styled.SubmitModalImageWrapper>
         {isLoading ? (
           <img src={Loading} alt="로딩 이미지" />
         ) : (
           imageUrl.map((item, index) => (
-            <ImageContainer isSelected={item === tempSelectedImage} key={index}>
+            <Styled.ImageContainer
+              isSelected={item === tempSelectedImage}
+              key={index}
+            >
               <img
                 onClick={() => setTempSelectedImage(item)}
                 src={`data:image/png;base64,${item}`}
                 alt={`이미지 ${index}`}
               />
-            </ImageContainer>
+            </Styled.ImageContainer>
           ))
         )}
-      </ImageWrapper>
+      </Styled.SubmitModalImageWrapper>
       <Button
         width="100%"
         textColor="white"
