@@ -17,7 +17,7 @@ interface AnswerProps {
  *  @param {(e: React.DragEvent<HTMLDivElement>) => void} props.onDragOver - 드래그 오버 이벤트 핸들러
  * **/
 
-export default function Answer({
+export default function AnswerField({
   selectedWords,
   onDrop,
   onDragOver,
