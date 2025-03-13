@@ -1,15 +1,12 @@
-import Question from '@components/common/Question.tsx';
 import * as Styled from '@styles/pages/DirectivePage.styled';
-import OceanImg from '@assets/Ocean.jpg';
-import Word from '@components/domain/DirectivePage/Word.tsx';
-import Answer from '@components/domain/DirectivePage/Answer.tsx';
-import Button from '@components/common/Button.tsx';
-import { COLORS } from '@utils/color.ts';
+import WordBlock from '@components/domain/DirectivePage/WordBlock.tsx';
+import AnswerField from '@components/domain/DirectivePage/AnswerField.tsx';
 import React, { useEffect, useState } from 'react';
 import ImageSelectModal from '@components/domain/DirectivePage/ImageSelectModal.tsx';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
 import { useAnswerStore } from '@/store/answerStore.ts';
 import DragSelectedImage from '@components/domain/DirectivePage/DragSelectedImage.tsx';
+import ContentWrapper from '@components/domain/DirectivePage/ContentWrapper.tsx';
 
 const initialContentDataList = [
   { id: 1, top: '100', left: '100', text: '보라' },
@@ -69,85 +66,35 @@ export default function DirectivePage() {
 
   if (selectedImage) {
     return (
-      <Question question={question}>
-        <Styled.ContentWrapper>
-          <Styled.ImageField>
-            <Styled.ImageWrapper>
-              <Styled.BackgroundImage src={OceanImg} alt="바다 내부 이미지" />
-            </Styled.ImageWrapper>
-            <Styled.SelectedImageContainer>
-              <DragSelectedImage />
-            </Styled.SelectedImageContainer>
-          </Styled.ImageField>
-          <ButtonArea selectedWords={selectedWords} setIsOpen={setIsOpen} />
-        </Styled.ContentWrapper>
-      </Question>
+      <ContentWrapper
+        question={question}
+        selectedWords={selectedWords}
+        setIsOpen={setIsOpen}
+      >
+        <Styled.SelectedImageContainer>
+          <DragSelectedImage />
+        </Styled.SelectedImageContainer>
+      </ContentWrapper>
     );
   }
 
   return (
-    <Question question={question}>
-      <Styled.ContentWrapper>
-        <Styled.ImageField>
-          <Styled.ImageWrapper>
-            <Styled.BackgroundImage src={OceanImg} alt="바다 내부 이미지" />
-          </Styled.ImageWrapper>
-          <Word
-            contentDataList={initialContentDataList}
-            onDragStart={handleDragStart}
-            selectedWords={selectedWords}
-          />
-          <Answer
-            selectedWords={selectedWords}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          />
-        </Styled.ImageField>
-        <ButtonArea selectedWords={selectedWords} setIsOpen={setIsOpen} />
-      </Styled.ContentWrapper>
+    <ContentWrapper
+      question={question}
+      selectedWords={selectedWords}
+      setIsOpen={setIsOpen}
+    >
+      <WordBlock
+        contentDataList={initialContentDataList}
+        onDragStart={handleDragStart}
+        selectedWords={selectedWords}
+      />
+      <AnswerField
+        selectedWords={selectedWords}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      />
       <ImageSelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </Question>
-  );
-}
-
-function ButtonArea({
-  selectedWords,
-  setIsOpen,
-}: {
-  selectedWords: string[];
-  setIsOpen: (isOpen: boolean) => void;
-}) {
-  const { selectedImage, resetSelectedImage } = useSelectedImageStore();
-  const { resetAnswer } = useAnswerStore();
-
-  return (
-    <Styled.ButtonBox>
-      {selectedImage && (
-        <Button
-          disabled={!selectedImage}
-          padding="8px 20px 8px 20px"
-          onClick={() => {
-            resetAnswer();
-            resetSelectedImage();
-          }}
-        >
-          다시하기
-        </Button>
-      )}
-      {!selectedImage && (
-        <Button
-          disabled={selectedWords.length < 3}
-          backgroundColor={
-            selectedWords.length < 3 ? COLORS.DISABLE_COLOR : COLORS.MAIN
-          }
-          border={selectedWords.length < 3 ? 'none' : ''}
-          textColor="white"
-          padding="8px 20px 8px 20px"
-          onClick={() => setIsOpen(true)}
-        >
-          제출
-        </Button>
-      )}
-    </Styled.ButtonBox>
+    </ContentWrapper>
   );
 }
