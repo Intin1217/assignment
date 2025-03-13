@@ -10,7 +10,7 @@ interface Props {
   selectedWords: string[];
 }
 
-export default function Word({
+export default function WordBlock({
   contentDataList,
   onDragStart,
   selectedWords,
@@ -33,21 +33,24 @@ export default function Word({
 
   return (
     <>
-      {contentDataList.map((item, index) => (
-        <Styled.Content
-          key={index}
-          {...item}
-          draggable
-          onDragStart={handleDragStart(item.text)}
-          blink={
-            isAfk &&
-            answer.some((word) => item.text.includes(word)) &&
-            !answerList.includes(item.text)
-          }
-        >
-          {item.text}
-        </Styled.Content>
-      ))}
+      {contentDataList.map((item, index) => {
+        const isBlink =
+          isAfk &&
+          answer.some((word) => item.text.includes(word)) &&
+          !answerList.includes(item.text);
+
+        return (
+          <Styled.Content
+            key={index}
+            {...item}
+            draggable
+            onDragStart={handleDragStart(item.text)}
+            blink={isBlink}
+          >
+            {item.text}
+          </Styled.Content>
+        );
+      })}
     </>
   );
 }
