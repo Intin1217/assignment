@@ -9,6 +9,8 @@ interface Props {
   gotoPage: (page: number) => void;
 }
 
+const TOTAL_PAGES = 3;
+
 // 페이지 네이션 컴포넌트
 export default function Pagination() {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ export default function Pagination() {
   const currentPage = page ? Number(page) : 1;
 
   const gotoPage = (pageNumber: number) => {
-    navigate(`/page/${String(pageNumber)}`);
+    navigate(`/page/${pageNumber}`);
   };
 
   return (
@@ -30,16 +32,15 @@ export default function Pagination() {
 
 // 이전 버튼
 function PrevButton({ currentPage, gotoPage }: Props) {
+  const isDisabled = currentPage === 1;
   return (
     <div>
       <Button
         border="none"
-        disabled={currentPage === 1}
-        onClick={() => gotoPage(Number(currentPage - 1))}
+        disabled={isDisabled}
+        onClick={() => gotoPage(currentPage - 1)}
       >
-        <Styled.Text
-          color={`${currentPage === 1 ? `${COLORS.DISABLE_COLOR}` : ''}`}
-        >
+        <Styled.Text color={`${isDisabled ? `${COLORS.DISABLE_COLOR}` : ''}`}>
           <IoIosArrowBack />
           이전
         </Styled.Text>
@@ -53,24 +54,23 @@ function PageNumber({ currentPage }: { currentPage: number }) {
   return (
     <Styled.PageBox>
       <Styled.Text>{currentPage}</Styled.Text>
-      <Styled.Text color={`${COLORS.DISABLE_COLOR}`}>/</Styled.Text>
-      <Styled.Text color={`${COLORS.DISABLE_COLOR}`}>3</Styled.Text>
+      <Styled.Text color={COLORS.DISABLE_COLOR}>/</Styled.Text>
+      <Styled.Text color={COLORS.DISABLE_COLOR}>{TOTAL_PAGES}</Styled.Text>
     </Styled.PageBox>
   );
 }
 
 // 다음 버튼
 function NextButton({ currentPage, gotoPage }: Props) {
+  const isDisabled = currentPage === TOTAL_PAGES;
   return (
     <div>
       <Button
         border="none"
-        disabled={currentPage === 3}
-        onClick={() => gotoPage(Number(currentPage + 1))}
+        disabled={isDisabled}
+        onClick={() => gotoPage(currentPage + 1)}
       >
-        <Styled.Text
-          color={`${currentPage === 3 ? `${COLORS.DISABLE_COLOR}` : ''}`}
-        >
+        <Styled.Text color={`${isDisabled ? `${COLORS.DISABLE_COLOR}` : ''}`}>
           다음 <IoIosArrowForward />
         </Styled.Text>
       </Button>
