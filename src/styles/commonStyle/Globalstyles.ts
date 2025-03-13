@@ -1,6 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const Globalstyles = createGlobalStyle`
+    @font-face {
+        font-family: 'SUIT-Medium';
+        src: local('SUIT-Medium'),
+        url('/fonts/SUIT-Medium.ttf');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -31,6 +40,7 @@ export const Globalstyles = createGlobalStyle`
         line-height: 1;
         height: 100%;
         width: 100%;
+        font-family: 'SUIT-Medium', sans-serif;
     }
 
     ol, ul {
@@ -70,7 +80,6 @@ export const Globalstyles = createGlobalStyle`
         height: 100%;
         overflow-y: scroll;
         line-height: 1;
-        font-family: 'Noto Sans KR', sans-serif;
         background-color: #ffffff;
         margin-bottom: 100px;
     }
