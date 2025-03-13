@@ -21,7 +21,7 @@ export const ContentQuestionBox = styled.div`
   width: 100%;
 `;
 
-export const TextBox = styled.p`
+export const TextBox = styled.div`
   border: ${COLORS.DISABLE_COLOR} 1px solid;
   padding: 20px;
   width: 100%;
