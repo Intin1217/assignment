@@ -2,7 +2,7 @@ import ModalBase from '@components/common/ModalBase.tsx';
 import { ModalPropsType } from '@/types/modalPropType.ts';
 import { COLORS } from '@utils/color.ts';
 import Button from '@components/common/Button.tsx';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAnswerStore } from '@/store/answerStore.ts';
 import { fetchImageFromAPI } from '@utils/fetchImage.ts';
 import { useSelectedImageStore } from '@/store/selectImageStore.ts';
@@ -29,17 +29,25 @@ export default function ImageSelectModal({ isOpen, onClose }: ModalPropsType) {
 
   const modalDescription = '네 개 이미지 중 하나를 고르세요.';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isOpen && answerList.length === 3) {
-        setIsLoading(true);
+  const fetchData = useCallback(async () => {
+    if (isOpen && answerList.length === 3) {
+      setIsLoading(true);
+
+      try {
         const res = await fetchImageFromAPI(answerList);
 
         if (!res) return;
         setImageUrl(res.predictions);
         setIsLoading(false);
+      } catch {
+        onClose();
+      } finally {
+        setIsLoading(false);
       }
-    };
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     fetchData();
   }, [isOpen]);
 
@@ -76,6 +84,9 @@ export default function ImageSelectModal({ isOpen, onClose }: ModalPropsType) {
           ))
         )}
       </Styled.SubmitModalImageWrapper>
+      <Button width="100%" onClick={fetchData}>
+        마음에 드는 사진이 없어요 다시 생성해주세요
+      </Button>
       <Button
         width="100%"
         textColor="white"
