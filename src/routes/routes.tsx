@@ -1,19 +1,21 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '@/App.tsx';
-import Test from '@/pages/Test.tsx';
-
-export const ROUTE_LINK = {
-  TEST: { path: 'test', link: '/test' },
-};
+import Pages from '@components/common/Pages.tsx';
 
 const routes = [
   {
     path: '/',
     element: <App />,
-  },
-  {
-    path: ROUTE_LINK.TEST.path,
-    element: <Test />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/page/1" />,
+      },
+      {
+        path: 'page/:page',
+        element: <Pages />,
+      },
+    ],
   },
 ];
 
