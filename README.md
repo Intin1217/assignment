@@ -11,9 +11,9 @@
 
 ## 과제 해결 방식
 ### 사전 작업
-공통 레이아웃 컴포넌트 작성 https://github.com/Intin1217/elice_assignment/tree/master/src/styles/commonStyle
+공통 레이아웃 컴포넌트 작성 https://github.com/Intin1217/assignment/tree/master/src/styles/commonStyle
 
-공용 컴포넌트 작성 https://github.com/Intin1217/elice_assignment/tree/master/src/components/common
+공용 컴포넌트 작성 https://github.com/Intin1217/assignment/tree/master/src/components/common
 
 ### 기능 구현
 - 1번 요구 사항: onMouseEnter 속성을 이용하여 Hover시 모달이 열리게 구현 (1)
@@ -33,16 +33,16 @@
 5.  `setSelectedWords(newSelectedWords);`로 선택 된 배열을 업데이트 후 현재 드래그 중인 단어를 초기화 합니다.
 6.  제출 버튼을 누르면 프롬프트가 AI 모델로 전송
 
-[https://github.com/Intin1217/elice_assignment/blob/master/src/components/domain/DirectivePage/ImageSelectModal.tsx](https://github.com/Intin1217/elice_assignment/blob/master/src/components/domain/DirectivePage/ImageSelectModal.tsx)
+[https://github.com/Intin1217/assignment/blob/master/src/components/domain/DirectivePage/ImageSelectModal.tsx](https://github.com/Intin1217/assignment/blob/master/src/components/domain/DirectivePage/ImageSelectModal.tsx)
    
-[https://github.com/Intin1217/elice_assignment/blob/master/src/utils/fetchImage.ts](https://github.com/Intin1217/elice_assignment/blob/master/src/utils/fetchImage.ts)
+[https://github.com/Intin1217/assignment/blob/master/src/utils/fetchImage.ts](https://github.com/Intin1217/assignment/blob/master/src/utils/fetchImage.ts)
 
 ![image](https://github.com/user-attachments/assets/0c9632e1-49af-4f1d-b2b5-667288c12a0d) 
 
 ![image](https://github.com/user-attachments/assets/bb054d0e-b488-406c-ad5e-86772680ff72)
 
 - 4, 5, 6번 요구 사항 (2A, 3A, 2B, 3B, 2C, 3C)
-1. 유저 상호작용 여부를 판별하기 위한 전역 상태 작성 https://github.com/Intin1217/elice_assignment/blob/master/src/store/userAfkStore.ts
+1. 유저 상호작용 여부를 판별하기 위한 전역 상태 작성 https://github.com/Intin1217/assignment/blob/master/src/store/userAfkStore.ts
 
 2. 10초간 상호 작용이 없을 경우 isAfk의 상태를 변경
 ![image](https://github.com/user-attachments/assets/aa55ad3c-a67b-45ec-9bd5-54b992add953)
@@ -71,7 +71,7 @@
 1. 제출 버튼을 누르면 AI 이미지 선택 모달이 활성화
 2. 모달이 보이게 되면 API 통신을 통해 이미지 로딩
 ![image](https://github.com/user-attachments/assets/0550a8d2-38a9-4ebd-8531-a3f1402ccd67)
-3. 선택된 이미지를 저장하기 위해 https://github.com/Intin1217/elice_assignment/blob/master/src/store/selectImageStore.ts 상태 생성
+3. 선택된 이미지를 저장하기 위해 https://github.com/Intin1217/assignment/blob/master/src/store/selectImageStore.ts 상태 생성
 
 4.
 <table>
